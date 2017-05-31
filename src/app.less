@@ -1,0 +1,49 @@
+@import '~base';
+
+a[href] {
+    color: @color-primary;
+    text-decoration: none;
+    &:hover, &:active {
+        text-decoration: underline;
+    }
+}
+
+@font-face {
+    font-family: 'cjk';
+    src: local('Microsoft YaHei'), local('Apple LiGothic Medium'), local('AR PL UMing'), local('monospace');
+    unicode-range: U+3000-30FF, U+FF00-FFEF, U+4E00-9FAF;
+}
+
+:global(#app) {
+    font-family: cjk, Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+    font-size: @font-size;
+    line-height: @line-height;
+    min-height: 100vh;
+    background-color: @color-bg;
+    color: @color-text;
+    display: flex;
+    flex-flow: column nowrap;
+
+    > * {
+        flex: 1;
+        display: inherit;
+        flex-flow: column nowrap;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+
+        width: 100%;
+        max-width: @width-container-max;
+        margin: @spacing-y auto;
+        padding: 0 @spacing-x;
+        box-sizing: border-box;
+    }
+}
+
