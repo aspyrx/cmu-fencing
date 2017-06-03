@@ -21,7 +21,7 @@ const routes = routeConfigFlat.map((config, i) => {
 });
 
 export default function App() {
-    return <BrowserRouter>
+    return <BrowserRouter basename={__webpack_public_path__}>
         <div>
             <Header routeConfig={routeConfig} />
             <div className={styles.container}>

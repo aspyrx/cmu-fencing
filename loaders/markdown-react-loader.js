@@ -31,7 +31,7 @@ module.exports = function loader(content) {
 
     const done = this.async();
     if (!done) {
-        const html = marked(content);
+        const html = toComponent(marked(content));
         return html;
     }
 

@@ -15,6 +15,9 @@
         "commonjs": true,
         "es6": true
     },
+    "globals": {
+        "__webpack_public_path__": true
+    },
     "plugins": [
         "react"
     ]
