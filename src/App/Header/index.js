@@ -134,12 +134,12 @@ function renderRoutes(parent, children) {
 }
 
 export default function Header({ routeConfig }) {
-    return <div className={styles.header}>
-        <div className={styles.navigation}>
+    return <header className={styles.header}>
+        <nav>
             <Logo />
             {renderRoutes('', routeConfig.children)}
-        </div>
-    </div>;
+        </nav>
+    </header>;
 }
 
 Header.propTypes = {

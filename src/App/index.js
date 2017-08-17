@@ -36,12 +36,12 @@ export default function App() {
     return <BrowserRouter basename={__webpack_public_path__}>
         <div>
             <Header routeConfig={routeConfig} />
-            <div className={styles.container}>
+            <main className={styles.container}>
                 <Switch>
                     { routes }
                     <Route component={asyncComponent(NotFound, Spinner)} />
                 </Switch>
-            </div>
+            </main>
             <Footer routeConfig={routeConfig} />
         </div>
     </BrowserRouter>;

@@ -11,8 +11,8 @@ export default function Footer({ routeConfig }) {
             return <Link key={i} to={`/${name}/`}>{title}</Link>;
         });
 
-    return <div className={styles.footer}>
-        <div className={styles.navigation}>
+    return <footer className={styles.footer}>
+        <nav>
             <Link to='/'>Home</Link>
             {links}
             <div className={styles.right}>
@@ -20,8 +20,8 @@ export default function Footer({ routeConfig }) {
                     Site design by <a href="https://szz.io">Stan Zhang</a>
                 </span>
             </div>
-        </div>
-    </div>;
+        </nav>
+    </footer>;
 }
 
 Footer.propTypes = {
