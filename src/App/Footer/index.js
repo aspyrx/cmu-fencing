@@ -17,7 +17,12 @@ export default function Footer({ routeConfig }) {
             {links}
             <div className={styles.right}>
                 <span>
-                    Site design by <a href="https://szz.io">Stan Zhang</a>
+                    Email: <a href='mailto:fencing@andrew.cmu.edu'>
+                        fencing@andrew.cmu.edu
+                    </a>
+                </span>
+                <span>
+                    Site design by <a href='https://szz.io'>Stan Zhang</a>
                 </span>
             </div>
         </nav>
