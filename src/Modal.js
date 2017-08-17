@@ -57,11 +57,20 @@ export default class Modal extends React.Component {
         const { isOpen } = this.state;
         const { className, button, children, transition } = this.props;
 
-        const modal = isOpen
-            ? React.cloneElement(children, {
+        let modal;
+        if (isOpen) {
+            modal = React.cloneElement(children, {
                 isOpen, close: this.close
-            })
-            : null;
+            });
+
+            if (transition) {
+                modal = <CSSTransition key={isOpen} {...transition}>
+                    {modal}
+                </CSSTransition>;
+            }
+        } else {
+            modal = null;
+        }
 
         const modalButton = React.cloneElement(button, {
             isOpen, open: this.open
@@ -70,9 +79,7 @@ export default class Modal extends React.Component {
         return <span className={className}>
             {modalButton}
             <TransitionGroup component={FirstChild}>
-                <CSSTransition {...transition}>
-                    {modal}
-                </CSSTransition>
+                {modal}
             </TransitionGroup>
         </span>;
     }

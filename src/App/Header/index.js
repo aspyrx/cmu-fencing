@@ -114,8 +114,11 @@ function renderRoutes(parent, children) {
                 className={styles.dropdown}
                 button={button}
                 transition={{
+                    appear: true,
                     classNames: {
-                        enter, enterActive, exit, exitActive
+                        enter, enterActive, exit, exitActive,
+                        appear: enter,
+                        appearActive: enterActive
                     },
                     timeout: 300
                 }}
@@ -123,8 +126,9 @@ function renderRoutes(parent, children) {
                 <DropdownMenu
                     to={path}
                     title={title}
-                    children={grandchildren}
-                />
+                >
+                    {grandchildren}
+                </DropdownMenu>
             </Dropdown>;
         });
 }
