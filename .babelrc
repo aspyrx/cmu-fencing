@@ -11,6 +11,13 @@
     "plugins": [
         "react-hot-loader/babel",
         "transform-object-rest-spread"
-    ]
+    ],
+    "env": {
+        "production": {
+            "presets": [
+                "minify"
+            ]
+        }
+    }
 }
 
