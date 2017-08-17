@@ -5,8 +5,8 @@ import {
 import { Route, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
-import Dropdown from '~/components/dropdown';
-import styles from './header.less';
+import Dropdown from 'src/Dropdown';
+import styles from './index.less';
 
 function objectIsEmpty(obj) {
     // eslint-disable-next-line guard-for-in
@@ -107,17 +107,18 @@ function renderRoutes(parent, children) {
                 title={title}
             />;
 
-            const { enter, enterActive, leave, leaveActive } = styles;
+            const { enter, enterActive, exit, exitActive } = styles;
 
             return <Dropdown
                 key={i}
                 className={styles.dropdown}
                 button={button}
-                transitionName={{
-                    enter, enterActive, leave, leaveActive
+                transition={{
+                    classNames: {
+                        enter, enterActive, exit, exitActive
+                    },
+                    timeout: 300
                 }}
-                transitionEnterTimeout={300}
-                transitionLeaveTimeout={300}
             >
                 <DropdownMenu
                     to={path}

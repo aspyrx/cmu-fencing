@@ -1,4 +1,4 @@
-@import '~base';
+@import '~src/less/definitions';
 
 .header {
     position: relative;
@@ -135,7 +135,7 @@
                 transform-origin: top center;
 
                 transition-property: opacity, transform;
-                transition-duration: @duration-transition;
+                transition-duration: @duration-enter-exit;
 
                 .child-separator(bottom);
 
@@ -143,12 +143,12 @@
                     width: 100%;
                 });
 
-                &.enter, &.leave.leaveActive {
+                &.enter, &.exit.exitActive {
                     transform: rotateX(90deg);
                     opacity: 0;
                 }
 
-                &.leave, &.enter.enterActive {
+                &.exit, &.enter.enterActive {
                     transform: none;
                     opacity: 1;
                 }

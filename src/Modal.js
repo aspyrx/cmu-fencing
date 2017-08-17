@@ -1,6 +1,7 @@
 import React from 'react';
-import { string, bool, arrayOf, element } from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { string, bool, shape, arrayOf, element } from 'prop-types';
+import CSSTransition from 'react-transition-group/CSSTransition';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 function FirstChild({ children }) {
     return children[0] || null;
@@ -54,20 +55,25 @@ export default class Modal extends React.Component {
 
     render() {
         const { isOpen } = this.state;
-        const { className, button, children, ...rest } = this.props;
+        const { className, button, children, transition } = this.props;
 
         const modal = isOpen
-            ? React.cloneElement(children, { isOpen, close: this.close })
+            ? React.cloneElement(children, {
+                isOpen, close: this.close
+            })
             : null;
 
+        const modalButton = React.cloneElement(button, {
+            isOpen, open: this.open
+        });
+
         return <span className={className}>
-            {React.cloneElement(button, { isOpen, open: this.open })}
-            <CSSTransitionGroup
-                component={FirstChild}
-                {...rest}
-            >
-                {modal}
-            </CSSTransitionGroup>
+            {modalButton}
+            <TransitionGroup component={FirstChild}>
+                <CSSTransition {...transition}>
+                    {modal}
+                </CSSTransition>
+            </TransitionGroup>
         </span>;
     }
 }
@@ -76,6 +82,7 @@ Modal.propTypes = {
     className: string,
     button: element.isRequired,
     children: element.isRequired,
+    transition: shape(CSSTransition.propTypes),
     noWindowHandler: bool
 };
 

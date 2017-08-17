@@ -2,8 +2,8 @@ import React from 'react';
 import { shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import events, { eventShape } from '~/routes/events/events.js';
-import asyncComponent from '~/components/asyncComponent';
+import events, { eventShape } from 'src/routes/events/events.js';
+import asyncComponent from 'src/async-component';
 import HomeContent from 'bundle-loader?lazy!./index.md';
 import styles from './index.less';
 

@@ -1,14 +1,14 @@
-import asyncComponent from '~/components/asyncComponent';
-import Spinner from '~/components/spinner';
+import asyncComponent from 'src/async-component';
+import Spinner from 'src/Spinner';
 
 const routeConfigCtx = require.context(
-    '~/routes',
+    './routes',
     true,
     /\/route.json$/
 );
 
 const routeComponentCtx = require.context(
-    'bundle-loader?lazy!~/routes',
+    'bundle-loader?lazy!./routes',
     true,
     /\/index.(js|md)$/
 );

@@ -1,13 +1,20 @@
+/**
+ * Main app module.
+ *
+ * @module src/App
+ */
+
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import asyncComponent from '~/components/asyncComponent';
-import Spinner from '~/components/spinner';
-import NotFound from 'bundle-loader?lazy!~/components/NotFound';
-import Header from '~/header';
-import Footer from '~/footer';
-import styles from './app.less';
-import routeConfig, { routeConfigFlat } from '~/routeConfig';
+import asyncComponent from 'src/async-component';
+import Spinner from 'src/Spinner';
+import routeConfig, { routeConfigFlat } from 'src/routeConfig';
+
+import NotFound from 'bundle-loader?src/NotFound';
+import Header from './Header';
+import Footer from './Footer';
+import styles from './index.less';
 
 const routes = routeConfigFlat.map((config, i) => {
     const { path, component } = config;
@@ -20,6 +27,11 @@ const routes = routeConfigFlat.map((config, i) => {
     />;
 });
 
+/**
+ * React component for the entire app.
+ *
+ * @returns {ReactElement} The app's elements.
+ */
 export default function App() {
     return <BrowserRouter basename={__webpack_public_path__}>
         <div>

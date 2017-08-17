@@ -2,7 +2,7 @@ import React from 'react';
 import { object, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import styles from './footer.less';
+import styles from './index.less';
 
 export default function Footer({ routeConfig }) {
     const links = Object.keys(routeConfig.children)

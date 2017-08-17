@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Modal from './modal.js';
+import Modal from 'src/Modal';
 
 export default class Dropdown extends Modal {
     render() {

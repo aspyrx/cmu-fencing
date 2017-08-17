@@ -2,8 +2,8 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import { Link, Route, Redirect, Switch } from 'react-router-dom';
 
-import asyncComponent from '~/components/asyncComponent';
-import NotFound from '~/components/NotFound';
+import asyncComponent from 'src/async-component';
+import NotFound from 'src/NotFound';
 import events, { eventShape } from './events.js';
 
 const contentCtx = require.context(
