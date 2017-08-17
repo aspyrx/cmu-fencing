@@ -10,6 +10,8 @@ const publicPath = '/user/fencing/';
 
 config.output.publicPath = publicPath;
 
+config.devtool = 'source-map';
+
 if (!config.module) {
     config.module = {};
 }
@@ -39,6 +41,10 @@ if (!config.plugins) {
 
 config.plugins.push(
     new CleanWebpackPlugin(['dist'], { verbose: true }),
+    new webpack.optimize.UglifyJsPlugin({
+        parallel: true,
+        sourceMap: true
+    }),
     new webpack.DefinePlugin({
         'process.env': {
             'NODE_ENV': JSON.stringify('production')

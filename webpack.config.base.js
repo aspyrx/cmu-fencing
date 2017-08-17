@@ -133,7 +133,11 @@ module.exports = {
             }]
         }, {
             test: /\.js$/,
-            exclude: /node_modules/,
+            include: [
+                srcDir,
+                // https://github.com/webpack/loader-utils/issues/92
+                /node_modules\/loader-utils/
+            ],
             use: [{
                 loader: 'babel-loader'
             }]
@@ -145,7 +149,13 @@ module.exports = {
         }, {
             test: /\.csv$/,
             use: [{
-                loader: 'dsv-loader'
+                loader: 'csv-loader',
+                options: {
+                    delimiter: ',',
+                    newline: '\n',
+                    header: true,
+                    skipEmptyLines: true
+                }
             }]
         }, {
             test: /\.(eot|woff|ttf|svg|jpg|ico)$/,
