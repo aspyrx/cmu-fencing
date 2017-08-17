@@ -41,7 +41,6 @@ function formatDate(date) {
 }
 
 function Event(config) {
-    console.log(config);
     const { title, startDate, endDate, location, contentPath } = config;
 
     this.title = title;
