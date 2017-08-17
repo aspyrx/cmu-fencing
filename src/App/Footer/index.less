@@ -17,21 +17,18 @@
         margin: @spacing-y auto;
         box-sizing: border-box;
 
-        > * {
-            padding: 0 @spacing-x;
-        }
-
-        > .right {
+        .left, .right {
             display: flex;
             flex-flow: row wrap;
             justify-content: flex-end;
 
-            margin-left: auto;
-            padding: 0;
-
             > * {
                 padding: 0 @spacing-x;
             }
+        }
+
+        .right {
+            margin-left: auto;
         }
     }
 }

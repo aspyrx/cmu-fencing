@@ -6,7 +6,7 @@ all three fencing weapons. [Learn more about us here](./about/).
 
 ## Practice Schedule
 
-Fencing practices will be held every Monday and Wednesday from 5:45 to 8:30 in
+Fencing practices will be held every Monday and Wednesday from 5:30 to 8:30 in
 the Skibo Gym Arena Room ([directions here](./about/#directions)). This includes
 3-day weekends (Labor Day, Martin Luther King Day, etc.) but not winter break.
 

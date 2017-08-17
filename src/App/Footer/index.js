@@ -13,8 +13,10 @@ export default function Footer({ routeConfig }) {
 
     return <footer className={styles.footer}>
         <nav>
-            <Link to='/'>Home</Link>
-            {links}
+            <div className={styles.left}>
+                <Link to='/'>Home</Link>
+                {links}
+            </div>
             <div className={styles.right}>
                 <span>
                     Email: <a href='mailto:fencing@andrew.cmu.edu'>
@@ -23,6 +25,11 @@ export default function Footer({ routeConfig }) {
                 </span>
                 <span>
                     Site design by <a href='https://szz.io'>Stan Zhang</a>
+                </span>
+                <span>
+                    Source on <a href='https://github.com/aspyrx/cmu-fencing'>
+                        GitHub
+                    </a>
                 </span>
             </div>
         </nav>
