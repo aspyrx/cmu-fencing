@@ -4,6 +4,8 @@
   "description": "CMU Fencing website",
   "main": "index.js",
   "scripts": {
+    "doc": "jsdoc -c .jsdoc.json README.md src",
+    "doc-watch": "nodemon --config .nodemon.doc.json",
     "live": "node build.js live",
     "watch": "node build.js watch",
     "build": "node build.js",
@@ -11,6 +13,9 @@
     "prepare": "node build.js production",
     "lint": "eslint *.js src"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aspyrx/cmu-fencing.git"
