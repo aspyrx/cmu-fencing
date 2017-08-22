@@ -1,20 +1,33 @@
+/**
+ * Site-wide footer component.
+ *
+ * @module src/App/Footer
+ */
+
 import React from 'react';
-import { object, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import routeConfig from 'src/routeConfig';
 import styles from './index.less';
 
-export default function Footer({ routeConfig }) {
+/**
+ * Footer React component.
+ *
+ * @returns {ReactElement} The component's elements.
+ */
+export default function Footer() {
     const links = Object.keys(routeConfig.children)
-        .map((name, i) => {
-            const { title } = routeConfig.children[name];
-            return <Link key={i} to={`/${name}/`}>{title}</Link>;
+        .map(name => {
+            const { title, path } = routeConfig.children[name];
+            return <Link key={path} to={path}>{title}</Link>;
         });
+
+    const { title, path } = routeConfig;
 
     return <footer className={styles.footer}>
         <nav>
             <div className={styles.left}>
-                <Link to='/'>Home</Link>
+                <Link to={path}>{title}</Link>
                 {links}
             </div>
             <div className={styles.right}>
@@ -35,12 +48,4 @@ export default function Footer({ routeConfig }) {
         </nav>
     </footer>;
 }
-
-Footer.propTypes = {
-    routeConfig: shape({
-        path: string.isRequired,
-        title: string.isRequired,
-        children: object.isRequired
-    })
-};
 

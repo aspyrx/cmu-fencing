@@ -1,7 +1,7 @@
 /**
  * 404 page React component.
  *
- * @module src/App/NotFound
+ * @module src/NotFound
  */
 
 import React from 'react';
@@ -16,7 +16,7 @@ import { shape, string } from 'prop-types';
  * @returns {ReactElement} The rendered component.
  */
 export default function NotFound(props) {
-    const pathname = props.location;
+    const { pathname } = props.location;
 
     return <div>
         <h1>404 - Not Found</h1>

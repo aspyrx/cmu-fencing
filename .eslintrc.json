@@ -136,7 +136,8 @@
                 "Boolean": "boolean",
                 "Number": "number",
                 "String": "string",
-                "object": "Object"
+                "object": "Object",
+                "function": "Function"
             },
             "requireReturn": false,
             "requireReturnType": true,

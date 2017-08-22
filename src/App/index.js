@@ -9,9 +9,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import asyncComponent from 'src/async-component';
 import Spinner from 'src/Spinner';
-import routeConfig, { routeConfigFlat } from 'src/routeConfig';
+import { routeConfigFlat } from 'src/routeConfig';
 
-import NotFound from 'bundle-loader?src/NotFound';
+import NotFound from 'bundle-loader?lazy!src/NotFound';
 import Header from './Header';
 import Footer from './Footer';
 import styles from './index.less';
@@ -35,14 +35,14 @@ const routes = routeConfigFlat.map((config, i) => {
 export default function App() {
     return <BrowserRouter basename={__webpack_public_path__}>
         <div>
-            <Header routeConfig={routeConfig} />
+            <Header />
             <main className={styles.container}>
                 <Switch>
                     { routes }
                     <Route component={asyncComponent(NotFound, Spinner)} />
                 </Switch>
             </main>
-            <Footer routeConfig={routeConfig} />
+            <Footer />
         </div>
     </BrowserRouter>;
 }

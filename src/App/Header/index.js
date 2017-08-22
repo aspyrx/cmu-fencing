@@ -1,71 +1,100 @@
+/**
+ * Site-wide header component.
+ *
+ * @module src/App/Header
+ */
+
 import React from 'react';
 import {
-    bool, string, oneOfType, func, shape, object, node
+    bool, string, object
 } from 'prop-types';
 import { Route, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
+import routeConfig, { routeChildrenShape } from 'src/routeConfig';
 import Dropdown from 'src/Dropdown';
 import styles from './index.less';
 
+/**
+ * Checks if the object has no `own` properties.
+ *
+ * @param {Object} obj - The object to check.
+ * @returns {boolean} `true` if the object has no `own` properties; `false`
+ * otherwise.
+ */
 function objectIsEmpty(obj) {
-    // eslint-disable-next-line guard-for-in
     for (const key in obj) {
-        return false;
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            return false;
+        }
     }
 
     return true;
 }
 
+/**
+ * Logo React component.
+ *
+ * @returns {ReactElement} The component's elements.
+ */
 function Logo() {
     return <div className={styles.logo}>
-        <NavLink to='/' exact activeClassName={styles.active}>
+        <NavLink to={routeConfig.path} exact activeClassName={styles.active}>
             CMU Fencing
         </NavLink>
     </div>;
 }
 
-function HeaderLink({ to, children, ...props }) {
-    return typeof children === 'function'
-        ? <Route path={to} children={children} {...props} />
-        : <NavLink
-            to={to}
-            exact
-            activeClassName={styles.active}
-            {...props}
-        >
-            {children}
-        </NavLink>;
+/**
+ * Header link React component.
+ *
+ * @param {Object} props - The component's props. Will be spread onto a
+ * `NavLink`.
+ * @returns {ReactElement} The component's elements.
+ */
+function HeaderLink(props) {
+    return <NavLink
+        activeClassName={styles.active}
+        {...props}
+    />;
 }
 
-HeaderLink.propTypes = {
-    to: string.isRequired,
-    children: oneOfType([func, node])
-};
+/**
+ * Dropdown button React component.
+ *
+ * @param {Object} props - The component's props.
+ * @param {string} props.to - The dropdown's target path. Used for routing.
+ * @param {string} props.title - The title for the dropdown.
+ * @param {boolean} props.isOpen - Whether or not the dropdown is open.
+ * @returns {ReactElement} The component's elements.
+ */
+function DropdownButton(props) {
+    const { to, title, isOpen } = props;
 
-function DropdownButton({ to, title, isOpen }) {
-    function Child({ isActive }) {
+    /**
+     * Button React component.
+     *
+     * @param {Object} buttonProps - The component's props.
+     * @param {boolean} match - Whether or not the target path has been matched.
+     * @returns {ReactElement} The component's elements.
+     */
+    function Button(buttonProps) {
+        const { match } = buttonProps;
         const classes = classNames(styles.button, {
-            [styles.active]: isActive,
+            [styles.active]: match !== null,
             [styles.open]: isOpen
         });
 
-        const onClick = event => event.preventDefault();
-
-        return <a className={classes} href='' onClick={onClick}>
-            {title}
-        </a>;
+        return <span className={classes}>{title}</span>;
     }
 
-    Child.propTypes = {
-        isActive: bool
+    Button.propTypes = {
+        match: object
     };
 
-    return <HeaderLink
-        to={to}
-        exact={false}
-        children={Child}
-    />;
+    return <Route path={to}>
+        {Button}
+    </Route>;
 }
 
 DropdownButton.propTypes = {
@@ -74,79 +103,89 @@ DropdownButton.propTypes = {
     isOpen: bool
 };
 
-function DropdownMenu({ to, title, children }) {
+/**
+ * Dropdown menu React component.
+ *
+ * @param {Object} props - The component's props.
+ * @param {string} props.to - The dropdown's target path. Used for routing.
+ * @param {string} props.title - The title for the dropdown.
+ * @param {module:src/routeConfig~Children} props.routeChildren - Child routes.
+ * @returns {ReactElement} The component's elements.
+ */
+function DropdownMenu(props) {
+    const { to, title, routeChildren } = props;
     return <div className={styles.menu}>
-        <HeaderLink to={to}>{title}</HeaderLink>
-        {renderRoutes(to, children)}
+        <HeaderLink exact to={to}>{title}</HeaderLink>
+        {routeChildrenMenu(routeChildren)}
     </div>;
 }
 
 DropdownMenu.propTypes = {
     to: string.isRequired,
     title: string.isRequired,
-    isOpen: bool,
-    children: object.isRequired
+    routeChildren: routeChildrenShape.isRequired
 };
 
-function renderRoutes(parent, children) {
-    return Object.keys(children)
-        .map((name, i) => {
-            const { children: grandchildren, title, path } = children[name];
+/**
+ * Renders a menu for selecting a child route.
+ *
+ * @param {module:src/routeConfig~Children} routeChildren - The child routes.
+ * @returns {ReactElement[]} The menu's elements.
+ */
+function routeChildrenMenu(routeChildren) {
+    return Object.keys(routeChildren).map(name => {
+        const { children: grandchildren, title, path } = routeChildren[name];
 
-            if (objectIsEmpty(grandchildren)) {
-                return <HeaderLink
-                    key={i}
-                    to={path}
-                >
-                    {title}
-                </HeaderLink>;
-            }
+        if (objectIsEmpty(grandchildren)) {
+            return <HeaderLink
+                key={path}
+                to={path}
+            >
+                {title}
+            </HeaderLink>;
+        }
 
-            const button = <DropdownButton
+        const button = <DropdownButton
+            to={path}
+            title={title}
+        />;
+
+        const { enter, enterActive, exit, exitActive } = styles;
+
+        return <Dropdown
+            key={path}
+            className={styles.dropdown}
+            button={button}
+            transition={{
+                appear: true,
+                classNames: {
+                    enter, enterActive, exit, exitActive,
+                    appear: enter,
+                    appearActive: enterActive
+                },
+                timeout: 300
+            }}
+        >
+            <DropdownMenu
                 to={path}
                 title={title}
-            />;
-
-            const { enter, enterActive, exit, exitActive } = styles;
-
-            return <Dropdown
-                key={i}
-                className={styles.dropdown}
-                button={button}
-                transition={{
-                    appear: true,
-                    classNames: {
-                        enter, enterActive, exit, exitActive,
-                        appear: enter,
-                        appearActive: enterActive
-                    },
-                    timeout: 300
-                }}
-            >
-                <DropdownMenu
-                    to={path}
-                    title={title}
-                >
-                    {grandchildren}
-                </DropdownMenu>
-            </Dropdown>;
-        });
+                routeChildren={grandchildren}
+            />
+        </Dropdown>;
+    });
 }
 
-export default function Header({ routeConfig }) {
+/**
+ * Header React component.
+ *
+ * @returns {ReactElement} The component's elements.
+ */
+export default function Header() {
     return <header className={styles.header}>
         <nav>
             <Logo />
-            {renderRoutes('', routeConfig.children)}
+            {routeChildrenMenu(routeConfig.children)}
         </nav>
     </header>;
 }
-
-Header.propTypes = {
-    routeConfig: shape({
-        path: string.isRequired,
-        title: string.isRequired,
-        children: object.isRequired
-    })
-};
 
